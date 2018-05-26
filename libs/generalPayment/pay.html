@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.1.9.1.min.js"></script>
+</head>
+<body>
+ <button onclick="submit()">btn</button>
+</body>
+<script>
+    function submit(e) {
+        $.ajax({
+            'type':"post",
+            'url':"http://www.zhifutest.com/demo.php",
+            'data':{
+                'pay_method':"WeChat",
+                'amount_money':1,
+                'body':"测试商品"
+            },
+            'success':function (result) {
+                var $data = JSON.parse(result);
+                if($data.code > 0){
+                    $("body").append("<img src='"+ $data.url +"'>");
+                }else {
+                    alert($data.msg);
+                }
+            },
+            'error':function (error) {
+                console.log(error);
+            }
+        })
+    }
+</script>
+</html>
